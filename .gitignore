@@ -10,6 +10,11 @@
 !gradle/wrapper/gradle-wrapper.jar
 /out
 
+generated
+
+###IntelliJ IDEA ###
+application.properties
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -17,7 +22,7 @@
 *.ipr
 application.properties
 
-generated
+
 
 # AWS User-specific
 .idea/**/aws.xml
