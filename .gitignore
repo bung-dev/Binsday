@@ -7,6 +7,7 @@
 
 ###IntelliJ IDEA ###
 application.properties
+application-test.properties
 
 # User-specific stuff
 .idea/**/workspace.xml
