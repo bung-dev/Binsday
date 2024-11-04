@@ -20,9 +20,6 @@ application.properties
 *.iws
 *.iml
 *.ipr
-application.properties
-
-
 
 # AWS User-specific
 .idea/**/aws.xml
