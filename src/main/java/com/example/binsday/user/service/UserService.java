@@ -1,5 +1,6 @@
 package com.example.binsday.user.service;
 
+import com.example.binsday.user.dto.request.UserRequest;
 import com.example.binsday.user.dto.response.UserReadResponse;
 import com.example.binsday.user.entity.UserEntity;
 import com.example.binsday.user.repository.UserRepository;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,6 +19,16 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    //멤버 생성
+    public UserRequest create(UserRequest userRequest) {
+        try {
+            UserEntity user = userRequest.toEntity();
+            userRepository.save(user);
+            return new UserRequest(user);
+        } catch (Exception e){
+            throw new IllegalArgumentException();
+        }
+    }
 
     //멤버 상세 조회 (1개)
     public UserReadResponse read(Long userKey){
@@ -32,5 +42,26 @@ public class UserService {
         return userRepository.findAll().stream()
                 .map(UserReadResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    //멤버 수정
+    public UserRequest update(Long id,UserRequest userRequest){
+        UserEntity user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        try {
+            user.changeUserId(userRequest.getUserId());
+            user.changeUserPwd(userRequest.getUserPwd());
+            user.changeUserEmail(userRequest.getUserEmail());
+            user.changeUserName(userRequest.getUserName());
+            user.changeUserTel(userRequest.getUserTel());
+            return new UserRequest(user);
+        } catch (Exception e){
+            throw new IllegalArgumentException();
+        }
+    }
+
+    //멤버 삭제
+    public void delete(Long id){
+        UserEntity user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        userRepository.delete(user);
     }
 }
