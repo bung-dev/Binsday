@@ -49,10 +49,10 @@ public class UserService {
         UserEntity user = userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         try {
             user.changeUserId(userRequest.getUserId());
-            user.changeUserPwd(user.getUserPwd());
-            user.changeUserEmail(user.getUserEmail());
-            user.changeUserName(user.getUserName());
-            user.changeUserTel(user.getUserTel());
+            user.changeUserPwd(userRequest.getUserPwd());
+            user.changeUserEmail(userRequest.getUserEmail());
+            user.changeUserName(userRequest.getUserName());
+            user.changeUserTel(userRequest.getUserTel());
             return new UserRequest(user);
         } catch (Exception e){
             throw new IllegalArgumentException();
